@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - ..\..\App\JavaScript\Src\services.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>..\..\App\JavaScript\Src\services.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">49.62</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">112</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">24.71</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.76</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">(function () {
+    &#039;use strict&#039;;
+
+    var appServices = angular.module(&#039;app.services&#039;, []).value(&#039;version&#039;, &#039;1.5.4&#039;);
+
+    appServices.factory(&#039;browserService&#039;, function () {
+        var browserService = {};
+        var imagePrefix = &#039;App/Content/Images/&#039;;
+        var videoPrefix = &#039;App/Content/Images/Gifs/&#039;;
+
+        var android = {
+            image: &#039;Chrome.png&#039;,
+            video: &#039;Android-4.4-default.gif&#039;,
+            name: &#039;Android&#039;,
+            vendor: &#039;Chrome&#039;
+        };
+
+        var chrome = {
+            image: &#039;Chrome.png&#039;,
+            video: &#039;Chrome-38.gif&#039;,
+            name: &#039;Chrome&#039;,
+            vendor: &#039;Chrome&#039;
+        };
+
+        var ie8 = {
+            image: &#039;InternetExplorer.png&#039;,
+            video: &#039;InternetExplorer-8.gif&#039;,
+            name: &#039;Internet Explorer&#039;,
+            vendor: &#039;Internet Explorer&#039;
+        };
+
+        var ie = {
+            image: &#039;InternetExplorer.png&#039;,
+            video: &#039;InternetExplorer-11.gif&#039;,
+            name: &#039;Internet Explorer&#039;,
+            vendor: &#039;Internet Explorer&#039;
+        };
+
+        var firefox = {
+            image: &#039;Firefox.png&#039;,
+            video: &#039;Firefox-32.gif&#039;,
+            name: &#039;Firefox&#039;,
+            vendor: &#039;Firefox&#039;
+        };
+
+        var opera = {
+            image: &#039;Opera.png&#039;,
+            video: &#039;Opera-12.gif&#039;,
+            name: &#039;Opera&#039;,
+            vendor: &#039;Opera&#039;
+        };
+
+        var safari = {
+            image: &#039;Safari.png&#039;,
+            video: &#039;Safari-8.gif&#039;,
+            name: &#039;Safari&#039;,
+            vendor: &#039;Safari&#039;
+        };
+
+        var iPhone = {
+            image: &#039;Safari.png&#039;,
+            video: &#039;Safari-ios8-iphone.gif&#039;,
+            name: &#039;Safari on iPhone&#039;,
+            vendor: &#039;Safari&#039;,
+        };
+
+        var iPad = {
+            image: &#039;Safari.png&#039;,
+            video: &#039;Safari-ios8.gif&#039;,
+            name: &#039;Safari on iPad&#039;,
+            vendor: &#039;Safari&#039;,
+        };
+
+        browserService.getBrowser = function (browserDetail) {
+            var browser = {};
+
+            if (browserDetail.name === &#039;Android&#039; || (browserDetail.name === &#039;Chrome&#039; &amp;&amp; browserDetail.android === true)) {
+                browser = android;
+            } else if (browserDetail.name === &#039;Chrome&#039;) {
+                browser = chrome;
+            } else if (browserDetail.name === &#039;Internet Explorer 8&#039; || (browserDetail.name === &#039;Internet Explorer&#039; &amp;&amp; browser.version === 8)) {
+                browser = ie8;
+            } else if (browserDetail.name === &#039;Internet Explorer&#039;) {
+                browser = ie;
+            } else if (browserDetail.name === &#039;Firefox&#039;) {
+                browser = firefox;
+            } else if (browserDetail.name === &#039;Opera&#039;) {
+                browser = opera;
+            } else if (browserDetail.name === &#039;Safari&#039;) {
+                browser = safari;
+            } else if (browserDetail.name === &#039;iPhone&#039;) {
+                browser = iPhone;
+            } else if (browserDetail.name === &#039;iPad&#039;) {
+                browser = iPad;
+            } else {
+                browser.image = &#039;&#039;;
+                browser.video = &#039;&#039;;
+                browser.name = &#039;&#039;;
+            }
+
+            return {
+                image: imagePrefix + browser.image,
+                video: videoPrefix + browser.video,
+                name: browser.name,
+                vendor: browser.vendor,
+                version: browserDetail.version
+            };
+        };
+
+        return browserService;
+    });
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

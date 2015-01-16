@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <title>Verify It</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="App/Content/Images/Cookie.png" type="image/png" />
+
+    <!-- Chrome and Safari Pinned Site App -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- IOS Pinned Site App-->
+    <link rel="apple-touch-icon-precomposed" href="Content/icon.png" />
+
+    <!-- Resources -->
+    <link href="Build/Css/all.min.css?v=1.2.4" rel="stylesheet" />
+</head>
+<body ng-controller="BaseCtrl as base">
+    <div class="container">
+        <header>
+            <h1>Verify It</h1>
+        </header>
+        <main>
+            {{base.test}}
+            {{base.data}}
+
+
+        </main>
+        <footer>
+            <!--<a href="https://github.com/splintercode" target="_blank" class="built-by">Built by Cory Bateman</a>
+            <a href="https://plus.google.com/u/0/102986296317731631979?rel=author" rel="publisher"></a>-->
+        </footer>
+    </div>
+    <script src="Build/Js/all.min.js?v=1.2.4" async></script>
+</body>
+</html>
