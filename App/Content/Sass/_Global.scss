@@ -99,3 +99,21 @@ h2 {
         font-size: 22px;
     }
 }
+
+.status {
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    background: #ccc;
+    display: inline-block;
+
+    &--valid {
+        @extend .status;
+        background: #57a341;
+    }
+
+    &--invalid {
+        @extend .status;
+        background: #b13834;
+    }
+}

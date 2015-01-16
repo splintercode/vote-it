@@ -784,14 +784,15 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
 
     var appControllers = angular.module('app.controllers', []);
 
-    appControllers.controller('BaseCtrl', ['$scope', '$firebase', '$firebaseAuth', 'userService', function($scope, $firebase, $firebaseAuth, userService) {
+    appControllers.controller('BaseCtrl', ['$scope', '$firebase', function($scope, $firebase) {
         var ref = new Firebase("https://verify-it.firebaseio.com");
         var vm = this;
-
+       
         //#region Authentication
         ref.authAnonymously(function(error, authData) {
             if (authData) {
                 login(authData);
+                vm.teamReady = false;
             } else {
                 console.log("Login Failed!", error);
             }
@@ -806,7 +807,7 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
             var userData = {
                 authData: authData,
                 userData: {
-                    name: 'anonymous'
+                    name: (vm.name ? vm.name : 'anonymous')
                 }
             };
 

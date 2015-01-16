@@ -19,14 +19,19 @@
 <body ng-controller="BaseCtrl as base">
     <div class="container">
         <header>
-            <h1>Verify It</h1>
+            <h1>Vote It</h1>
         </header>
         <main>
             <label for="UserName">Name:</label><br />
             <input type="text" id="UserName" ng-model="user.userData.name" placeholder="Name" />
             <br /><br />
 
+            <input type="checkbox" id="Ready" ng-model="user.userData.ready"> <label for="Ready">Vote</label>
+
+            <br /><br />
+            <label>Team</label><hr />
             <div ng-repeat="user in base.users">
+                <div class="animated zoomIn" ng-class="user.userData.ready ? 'status--valid' : 'status--invalid'"></div>
                 {{ user.userData.name }}
             </div>
         </main>
