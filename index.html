@@ -19,14 +19,14 @@
 <body ng-controller="BaseCtrl as base">
     <div class="container">
         <header>
-            <h1>{{base.h1}}</h1>
+            <h1>Verify It</h1>
         </header>
-        <main>               
-            <input type="text" ng-model="data.text" />
-            <h3>You said: {{ data.text }}</h3>
-
+        <main>
+            <label for="UserName">Name:</label><br />
+            <input type="text" id="UserName" ng-model="user.userData.name" placeholder="Name" />
+            <br /><br />
             <div ng-repeat="user in base.users">
-                {{user.uid}}
+                {{ user.userData.name }}
             </div>
         </main>
         <footer>
