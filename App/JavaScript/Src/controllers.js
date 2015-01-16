@@ -3,14 +3,12 @@
 
     var appControllers = angular.module('app.controllers', []);
 
-    appControllers.controller('BaseCtrl', ['$scope', '$firebase', 'userService', function($scope, $firebase, userService) {
-        // View Models
+    appControllers.controller('BaseCtrl', ['$scope', '$firebase', '$firebaseAuth', 'userService', function($scope, $firebase, $firebaseAuth, userService) {
+        var ref = new Firebase("https://verify-it.firebaseio.com");
         var vm = this;
 
         //#region Authentication
-        var authRef = new Firebase("https://verify-it.firebaseio.com");
-
-        authRef.authAnonymously(function(error, authData) {
+        ref.authAnonymously(function(error, authData) {
             if (authData) {
                 login(authData);
             } else {
@@ -18,12 +16,9 @@
             }
         });
 
-        authRef.onAuth(function(authData) {
-            if (authData) {
-                getOnlineUsers(authData);
-            } else {
-                console.log("User logged out");
-            }
+        ref.onAuth(function() {
+            var sync = $firebase(ref.child('users'));
+            vm.users = sync.$asObject();
         });
 
         function login(authData) {
@@ -41,14 +36,6 @@
             var sync = $firebase(userRef);
             var syncObject = sync.$asObject();  // download the data into a local object
             syncObject.$bindTo($scope, "user"); // FireBase Data Models
-        }
-
-        function getOnlineUsers(authData) {
-            var userRef = new Firebase("https://verify-it.firebaseio.com/users");
-            var sync = $firebase(userRef);
-            vm.users = sync.$asObject();
-
-            console.log("User " + authData.uid + " is logged in with " + authData.provider);
         }
         //#endregion
     }]);

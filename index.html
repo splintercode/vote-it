@@ -25,6 +25,7 @@
             <label for="UserName">Name:</label><br />
             <input type="text" id="UserName" ng-model="user.userData.name" placeholder="Name" />
             <br /><br />
+
             <div ng-repeat="user in base.users">
                 {{ user.userData.name }}
             </div>

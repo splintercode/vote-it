@@ -3,11 +3,12 @@
 
     var appServices = angular.module('app.services', []).value('version', '1.5.4');
 
-    appServices.factory('userService', function() {
+    appServices.factory('userService', ['$q', '$firebase', function($q, $firebase) {
         var userService = {};
 
+
         return userService;
-    });
+    }]);
 
     appServices.factory('userStatusService', function() {
         var userStatusService = {};
