@@ -19,19 +19,21 @@
 <body ng-controller="BaseCtrl as base">
     <div class="container">
         <header>
-            <h1>Verify It</h1>
+            <h1>{{base.h1}}</h1>
         </header>
-        <main>
-            {{base.test}}
-            {{base.data}}
+        <main>               
+            <input type="text" ng-model="data.text" />
+            <h3>You said: {{ data.text }}</h3>
 
-
+            <div ng-repeat="user in base.users">
+                {{user.uid}}
+            </div>
         </main>
         <footer>
             <!--<a href="https://github.com/splintercode" target="_blank" class="built-by">Built by Cory Bateman</a>
             <a href="https://plus.google.com/u/0/102986296317731631979?rel=author" rel="publisher"></a>-->
         </footer>
     </div>
-    <script src="Build/Js/all.min.js?v=1.2.4" async></script>
+    <script src="Build/Js/all.js?v=1.2.4" async></script>
 </body>
 </html>

@@ -779,21 +779,57 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
         //$locationProvider.html5Mode(true);
     }]);
 }());
-(function () {
+(function() {
     'use strict';
 
     var appControllers = angular.module('app.controllers', []);
 
-    appControllers.controller('BaseCtrl', ['$firebase', 'voteService', function($firebase, voteService) {
+    appControllers.controller('BaseCtrl', ['$firebase', '$scope', 'voteService', function($firebase, $scope, voteService) {
+
+        // Set up FireBase Connection
+        var dataRef = new Firebase("https://verify-it.firebaseio.com/data");
+        var sync = $firebase(dataRef);
+        var syncObject = sync.$asObject();  // download the data into a local object
+
+        // FireBase Models
+        syncObject.$bindTo($scope, "data");
+
+        // View Models
         var vm = this;
+        vm.h1 = 'Verify It';
 
-        vm.test = 'Hello World';
 
-        var ref = new Firebase("https://verify-it.firebaseio.com/");
-        // create an AngularFire reference to the data
-        var sync = $firebase(ref);
-        // download the data into a local object
-        vm.data = sync.$asObject();
+
+
+        //#region Authentication
+        var authRef = new Firebase("https://verify-it.firebaseio.com");
+        var disconnectRef = {};
+
+        authRef.authAnonymously(function(error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("User " + authData.uid + " is logged in with " + authData.provider);
+
+                authRef.child("users").child(authData.uid).set(authData); // Save user data 
+
+                var disconnectRef = new Firebase('https://verify-it.firebaseio.com/users/' + authData.uid);
+                disconnectRef.onDisconnect().remove();
+            }
+        });
+
+        authRef.onAuth(function(authData) {
+            if (authData) {
+                var userRef = new Firebase("https://verify-it.firebaseio.com/users");
+                var sync = $firebase(userRef);
+                vm.users = sync.$asObject();
+
+                //console.log("User " + authData.uid + " is logged in with " + authData.provider);
+            } else {
+                //console.log("User is logged out");
+            }
+        });
+        //#endregion
     }]);
 }());
 (function () {
@@ -827,5 +863,31 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
         var voteService = {};
 
         return voteService;
+    });
+
+    appServices.factory('userStatusService', function() {
+        var userStatusService = {};
+
+        //var listRef = new Firebase("https://verify-it.firebaseio.com/presence/");
+        //var userRef = listRef.push();
+
+        //// Add ourselves to presence list when online.
+        //var presenceRef = new Firebase("https://verify-it.firebaseio.com/.info/connected");
+        //presenceRef.on("value", function(snap) {
+        //    if (snap.val()) {
+        //        userRef.set(true);
+
+        //        // Remove ourselves when we disconnect.
+        //        userRef.onDisconnect().remove();
+        //    }
+        //});
+
+        //// Number of online users is the number of objects in the presence list.
+        //listRef.on("value", function(snap) {
+        //    console.log("# of online users = " + snap.numChildren());
+        //    vm.activeUsers = snap.numChildren();
+        //});
+
+        return userStatusService;
     });
 }());
