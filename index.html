@@ -26,13 +26,20 @@
             <input type="text" id="UserName" ng-model="user.userData.name" placeholder="Name" />
             <br /><br />
 
-            <input type="checkbox" id="Ready" ng-model="user.userData.ready"> <label for="Ready">Vote</label>
+            <div ng-repeat="type in base.voteTypes">
+                <label>
+                    <input type="radio" ng-model="user.userData.vote" name="name" value="{{type.value}}" required />
+                    {{type.value}}
+                </label>
+            </div>
 
             <br /><br />
             <label>Votes</label><hr />
             <ul class="user-list">
                 <li ng-animate="'animate'" ng-repeat="user in base.users">
-                    <div class="animated" ng-class="user.userData.ready ? 'user-status--valid bounceIn' : 'user-status--invalid'"></div>
+                    <div class="animated bounceIn user-status--valid" ng-show="user.userData.vote == 'Yes'"></div>
+                    <div class="animated bounceIn user-status--invalid" ng-show="user.userData.vote == 'No'"></div>
+                    <div class="animated bounceIn user-status" ng-show="user.userData.vote == 'Neutral'"></div>
                     <div class="user-name">{{ user.userData.name }}</div>
                 </li>
             </ul>
