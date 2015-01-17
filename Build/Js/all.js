@@ -819,7 +819,7 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
     var appControllers = angular.module('app.controllers', []);
 
     appControllers.controller('BaseCtrl', ['$scope', '$firebase', function($scope, $firebase) {
-        var ref = new Firebase("https://verify-it.firebaseio.com");
+        var ref = new Firebase("https://vote-it.firebaseio.com");
         var vm = this;
        
         //#region Authentication
@@ -845,7 +845,7 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
                 }
             };
 
-            var userRef = new Firebase('https://verify-it.firebaseio.com/users/' + authData.uid);
+            var userRef = new Firebase('https://vote-it.firebaseio.com/users/' + authData.uid);
             userRef.set(userData);              // Save user data 
             userRef.onDisconnect().remove();    // Delete user data on end of session
 

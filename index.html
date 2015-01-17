@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en" ng-app="app">
 <head>
-    <title>Verify It</title>
+    <title>Vote It</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="App/Content/Images/Cookie.png" type="image/png" />
@@ -29,7 +29,7 @@
             <input type="checkbox" id="Ready" ng-model="user.userData.ready"> <label for="Ready">Vote</label>
 
             <br /><br />
-            <label>Team</label><hr />
+            <label>Votes</label><hr />
             <ul class="user-list">
                 <li ng-animate="'animate'" ng-repeat="user in base.users">
                     <div class="animated" ng-class="user.userData.ready ? 'user-status--valid bounceIn' : 'user-status--invalid'"></div>

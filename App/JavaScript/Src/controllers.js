@@ -4,7 +4,7 @@
     var appControllers = angular.module('app.controllers', []);
 
     appControllers.controller('BaseCtrl', ['$scope', '$firebase', function($scope, $firebase) {
-        var ref = new Firebase("https://verify-it.firebaseio.com");
+        var ref = new Firebase("https://vote-it.firebaseio.com");
         var vm = this;
        
         //#region Authentication
@@ -30,7 +30,7 @@
                 }
             };
 
-            var userRef = new Firebase('https://verify-it.firebaseio.com/users/' + authData.uid);
+            var userRef = new Firebase('https://vote-it.firebaseio.com/users/' + authData.uid);
             userRef.set(userData);              // Save user data 
             userRef.onDisconnect().remove();    // Delete user data on end of session
 
