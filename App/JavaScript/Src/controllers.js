@@ -26,7 +26,7 @@
             var userData = {
                 authData: authData,
                 userData: {
-                    name: (vm.name ? vm.name : 'anonymous')
+                    name: (vm.name ? vm.name : 'Anonymous')
                 }
             };
 

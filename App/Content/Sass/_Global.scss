@@ -100,20 +100,33 @@ h2 {
     }
 }
 
-.status {
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-status {
     border-radius: 50%;
-    width: 12px;
-    height: 12px;
+    width: 24px;
+    height: 24px;
     background: #ccc;
     display: inline-block;
+    margin-bottom: -4px;
 
     &--valid {
-        @extend .status;
+        @extend .user-status;
         background: #57a341;
     }
 
     &--invalid {
-        @extend .status;
+        @extend .user-status;
         background: #b13834;
     }
+}
+
+.user-name {
+    font-size: 1.3em;
+    display: inline-block;
+    margin-bottom: 16px;
 }

@@ -3,6 +3,7 @@
 
     var app = angular.module('app', [
         'ngRoute',
+        'ngAnimate',
         'firebase',
         'app.filters',
         'app.services',

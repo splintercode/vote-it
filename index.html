@@ -16,7 +16,7 @@
     <!-- Resources -->
     <link href="Build/Css/all.min.css?v=1.2.4" rel="stylesheet" />
 </head>
-<body ng-controller="BaseCtrl as base">
+<body ng-controller="BaseCtrl as base" ng-cloak>
     <div class="container">
         <header>
             <h1>Vote It</h1>
@@ -30,10 +30,12 @@
 
             <br /><br />
             <label>Team</label><hr />
-            <div ng-repeat="user in base.users">
-                <div class="animated zoomIn" ng-class="user.userData.ready ? 'status--valid' : 'status--invalid'"></div>
-                {{ user.userData.name }}
-            </div>
+            <ul class="user-list">
+                <li ng-animate="'animate'" ng-repeat="user in base.users">
+                    <div class="animated" ng-class="user.userData.ready ? 'user-status--valid bounceIn' : 'user-status--invalid'"></div>
+                    <div class="user-name">{{ user.userData.name }}</div>
+                </li>
+            </ul>
         </main>
         <footer>
             <!--<a href="https://github.com/splintercode" target="_blank" class="built-by">Built by Cory Bateman</a>
