@@ -4,15 +4,15 @@
     var appControllers = angular.module('app.controllers', []);
 
     appControllers.controller('BaseCtrl', ['$scope', '$firebase', function($scope, $firebase) {
-        var ref = new Firebase("https://vote-it.firebaseio.com");
+        var ref = new Firebase('https://vote-it.firebaseio.com');
         var vm = this;
-       
+
         vm.voteTypes = [{
-            value: "Yes"
+            value: 'Yes'
         }, {
-            value: "No"
+            value: 'No'
         }, {
-            value: "Neutral"
+            value: 'Neutral'
         }];
 
         //#region Authentication
@@ -20,7 +20,7 @@
             if (authData) {
                 login(authData);
             } else {
-                console.log("Login Failed!", error);
+                console.log('Login Failed!', error);
             }
         });
 
@@ -38,12 +38,12 @@
             };
 
             var userRef = new Firebase('https://vote-it.firebaseio.com/users/' + authData.uid);
-            userRef.set(userData);              // Save user data 
+            userRef.set(userData);              // Save user data
             userRef.onDisconnect().remove();    // Delete user data on end of session
 
             var sync = $firebase(userRef);
             var syncObject = sync.$asObject();  // download the data into a local object
-            syncObject.$bindTo($scope, "user"); // FireBase Data Models
+            syncObject.$bindTo($scope, 'user'); // FireBase Data Models
         }
 
         function getUpdatedListOfUsers() {

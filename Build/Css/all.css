@@ -1028,8 +1028,8 @@ body {
   font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   font-size: 16px;
-  background: #FCFCFC;
-  color: #2d2d2d;
+  background: #2d2d2d;
+  color: #fff;
   overflow-x: hidden;
   padding: 6px;
 }
@@ -1063,6 +1063,15 @@ a:hover {
   text-decoration: none;
 }
 
+header {
+  border-bottom: 1px solid #fff;
+  padding: 12px;
+  margin-bottom: 24px;
+}
+header h1 {
+  margin-bottom: 0;
+}
+
 h1 {
   font-size: 2em;
   line-height: 1.2em;
@@ -1087,28 +1096,13 @@ h2 {
   }
 }
 
-.text-center {
-  text-align: center;
-}
-
-.btn-link, .btn-link--large {
-  text-decoration: underline;
-  cursor: pointer;
-  background: none;
-  border: 0;
-  font-size: 16px;
-}
-.btn-link:hover, .btn-link--large:hover {
-  text-decoration: none;
-}
-.btn-link--large {
-  font-size: 22px;
-}
-
 .user-list {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+.user-list li {
+  min-height: 38px;
 }
 
 .user-status, .user-status--valid, .user-status--invalid {
@@ -1129,7 +1123,7 @@ h2 {
 .user-name {
   font-size: 1.3em;
   display: inline-block;
-  margin-bottom: 16px;
+  margin: 6px 4px;
 }
 
 .animate-enter,
@@ -1241,3 +1235,63 @@ Copyright (c) 2014 Daniel Eden
   -webkit-animation-duration: .75s;
   animation-duration: .75s;
 }
+
+/************************************* 
+       Component: Text Inputs 
+*************************************/
+input[type="text"] {
+  color: #2d2d2d;
+}
+
+/************************************* 
+       Component: Radio Inputs 
+*************************************/
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  display: block;
+  position: relative;
+  line-height: 20px;
+  margin-top: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+input[type="radio"] + label:before {
+  display: inline-block;
+  content: '';
+  width: 18px;
+  height: 17px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  background: #FFF;
+  border: 1px solid #ccc;
+  border-top: 2px solid #ccc;
+  border-radius: 20px;
+  vertical-align: middle;
+}
+
+input[type="radio"] + label:before {
+  border-radius: 20px;
+}
+
+input[type="radio"]:checked + label:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  background: #454545;
+  border-radius: 20px;
+}
+
+/* accessibility */
+/*[type="radio"]:checked:focus + label:before,
+[type="radio"]:not(:checked):focus + label:before {
+    border: 2px solid $focus-color;
+}*/

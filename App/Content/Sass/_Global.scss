@@ -10,8 +10,8 @@ body {
     font-family: Helvetica, Arial, "Lucida Grande", sans-serif; 
     font-weight: 300;
     font-size: 16px;
-    background: #FCFCFC;
-    color: #2d2d2d;
+    background: #2d2d2d;
+    color: #fff;
     overflow-x: hidden;
     padding: 6px;
 }
@@ -49,6 +49,13 @@ a {
 }
 
 header {
+    border-bottom: 1px solid #fff;
+    padding: 12px;
+    margin-bottom: 24px;
+
+    h1 {
+        margin-bottom: 0;
+    }
 }
 
 main {
@@ -79,31 +86,14 @@ h2 {
     }
 }
 
-.text-center {
-    text-align: center;
-}
-
-.btn-link {
-    text-decoration: underline;
-    cursor: pointer;
-    background: none;
-    border: 0;
-    font-size: 16px;
-
-    &:hover {
-        text-decoration: none;
-    }
-
-    &--large {
-        @extend .btn-link;
-        font-size: 22px;
-    }
-}
-
 .user-list {
     list-style: none;
     padding: 0;
     margin: 0;
+
+    li {
+        min-height: 38px;
+    }
 }
 
 .user-status {
@@ -128,5 +118,5 @@ h2 {
 .user-name {
     font-size: 1.3em;
     display: inline-block;
-    margin-bottom: 16px;
+    margin: 6px 4px;
 }

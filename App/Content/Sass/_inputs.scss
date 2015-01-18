@@ -1,0 +1,61 @@
+﻿/************************************* 
+       Component: Text Inputs 
+*************************************/
+input[type="text"] {
+    color: #2d2d2d;
+}
+
+
+/************************************* 
+       Component: Radio Inputs 
+*************************************/
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    display: block;
+    position: relative;
+    line-height: 20px;
+    margin-top: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: normal;
+}
+
+input[type="radio"] + label:before {
+    display: inline-block;
+    content: '';
+    width: 18px;
+    height: 17px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    background: #FFF;
+    border: 1px solid #ccc;
+    border-top: 2px solid #ccc;
+    border-radius: 20px;
+    vertical-align: middle;
+}
+
+input[type="radio"] + label:before {
+    border-radius: 20px;
+}
+
+input[type="radio"]:checked + label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 10px;
+    height: 10px;
+    background: #454545;
+    border-radius: 20px;
+}
+
+/* accessibility */
+/*[type="radio"]:checked:focus + label:before,
+[type="radio"]:not(:checked):focus + label:before {
+    border: 2px solid $focus-color;
+}*/

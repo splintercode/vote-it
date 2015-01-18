@@ -17,38 +17,38 @@
     <link href="Build/Css/all.min.css?v=1.2.4" rel="stylesheet" />
 </head>
 <body ng-controller="BaseCtrl as base" ng-cloak>
-    <div class="container">
-        <header>
+    <header>
+        <div class="container">
             <h1>Vote It</h1>
-        </header>
-        <main>
-            <label for="UserName">Name:</label><br />
-            <input type="text" id="UserName" ng-model="user.userData.name" placeholder="Name" />
-            <br /><br />
+        </div>
+    </header>
+    <main class="container">
+        <label for="UserName">Name:</label><br />
+        <input type="text" id="UserName" ng-model="user.userData.name" placeholder="Name" />
+        <br /><br />
 
-            <div ng-repeat="type in base.voteTypes">
-                <label>
-                    <input type="radio" ng-model="user.userData.vote" name="name" value="{{type.value}}" required />
-                    {{type.value}}
-                </label>
-            </div>
+        <div ng-repeat="type in base.voteTypes">
+            <input type="radio" ng-model="user.userData.vote" name="name" value="{{type.value}}" id="{{$index}}" required />
+            <label for="{{$index}}">
+                {{type.value}}
+            </label>
+        </div>
 
-            <br /><br />
-            <label>Votes</label><hr />
-            <ul class="user-list">
-                <li ng-animate="'animate'" ng-repeat="user in base.users">
-                    <div class="animated bounceIn user-status--valid" ng-show="user.userData.vote == 'Yes'"></div>
-                    <div class="animated bounceIn user-status--invalid" ng-show="user.userData.vote == 'No'"></div>
-                    <div class="animated bounceIn user-status" ng-show="user.userData.vote == 'Neutral'"></div>
-                    <div class="user-name">{{ user.userData.name }}</div>
-                </li>
-            </ul>
-        </main>
-        <footer>
-            <!--<a href="https://github.com/splintercode" target="_blank" class="built-by">Built by Cory Bateman</a>
-            <a href="https://plus.google.com/u/0/102986296317731631979?rel=author" rel="publisher"></a>-->
-        </footer>
-    </div>
+        <br /><br />
+        <label>Votes</label><hr />
+        <ul class="user-list">
+            <li ng-animate="'animate'" ng-repeat="user in base.users">
+                <div class="animated bounceIn user-status--valid" ng-show="user.userData.vote == 'Yes'"></div>
+                <div class="animated bounceIn user-status--invalid" ng-show="user.userData.vote == 'No'"></div>
+                <div class="animated bounceIn user-status" ng-show="user.userData.vote == 'Neutral'"></div>
+                <div class="user-name">{{ user.userData.name }}</div>
+            </li>
+        </ul>
+    </main>
+    <footer>
+        <!--<a href="https://github.com/splintercode" target="_blank" class="built-by">Built by Cory Bateman</a>
+        <a href="https://plus.google.com/u/0/102986296317731631979?rel=author" rel="publisher"></a>-->
+    </footer>
     <script src="Build/Js/all.js?v=1.2.4" async></script>
 </body>
 </html>
