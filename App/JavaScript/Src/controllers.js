@@ -4,7 +4,7 @@
     var appControllers = angular.module('app.controllers', []);
 
     appControllers.controller('BaseCtrl', ['$scope', '$firebase', function($scope, $firebase) {
-        var ref = new Firebase('https://vote-it.firebaseio.com');
+        var fireBase = new Firebase('https://vote-it.firebaseio.com');
         var vm = this;
 
         vm.voteTypes = [{
@@ -16,7 +16,7 @@
         }];
 
         //#region Authentication
-        ref.authAnonymously(function(error, authData) {
+        fireBase.authAnonymously(function(error, authData) {
             if (authData) {
                 login(authData);
             } else {
@@ -24,7 +24,7 @@
             }
         });
 
-        ref.onAuth(function() {
+        fireBase.onAuth(function() {
             getUpdatedListOfUsers();
         });
 
@@ -47,7 +47,7 @@
         }
 
         function getUpdatedListOfUsers() {
-            var sync = $firebase(ref.child('users'));
+            var sync = $firebase(fireBase.child('users'));
             vm.users = sync.$asObject();
         }
         //#endregion

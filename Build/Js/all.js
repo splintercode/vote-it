@@ -819,7 +819,7 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
     var appControllers = angular.module('app.controllers', []);
 
     appControllers.controller('BaseCtrl', ['$scope', '$firebase', function($scope, $firebase) {
-        var ref = new Firebase('https://vote-it.firebaseio.com');
+        var fireBase = new Firebase('https://vote-it.firebaseio.com');
         var vm = this;
 
         vm.voteTypes = [{
@@ -831,7 +831,7 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
         }];
 
         //#region Authentication
-        ref.authAnonymously(function(error, authData) {
+        fireBase.authAnonymously(function(error, authData) {
             if (authData) {
                 login(authData);
             } else {
@@ -839,7 +839,7 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
             }
         });
 
-        ref.onAuth(function() {
+        fireBase.onAuth(function() {
             getUpdatedListOfUsers();
         });
 
@@ -862,7 +862,7 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
         }
 
         function getUpdatedListOfUsers() {
-            var sync = $firebase(ref.child('users'));
+            var sync = $firebase(fireBase.child('users'));
             vm.users = sync.$asObject();
         }
         //#endregion
