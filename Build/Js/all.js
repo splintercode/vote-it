@@ -843,6 +843,9 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
 
         var currentGroup = '';
         function joinGroup(userName, groupName) {
+            /*
+             *  $asObject is causing sync issues and prevents deletion of old user
+             */
             var auth = $firebaseAuth(fireBase);
             var userAuth = auth.$getAuth();
             var uid = userAuth.uid;

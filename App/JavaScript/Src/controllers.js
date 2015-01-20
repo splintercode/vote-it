@@ -28,6 +28,9 @@
 
         var currentGroup = '';
         function joinGroup(userName, groupName) {
+            /*
+             *  $asObject is causing sync issues and prevents deletion of old user
+             */
             var auth = $firebaseAuth(fireBase);
             var userAuth = auth.$getAuth();
             var uid = userAuth.uid;
