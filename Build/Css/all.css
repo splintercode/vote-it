@@ -1189,6 +1189,10 @@ input[type="radio"]:checked + label:after {
 [type="radio"]:not(:checked):focus + label:before {
     border: 2px solid $focus-color;
 }*/
+.btn {
+  color: #2d2d2d;
+}
+
 /*!
     Cory Bateman http://www.corycode.me 
     MIT License http://opensource.org/licenses/MIT 

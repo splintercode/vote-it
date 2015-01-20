@@ -24,26 +24,41 @@
     </header>
     <main class="container">
         <label for="UserName">Name:</label><br />
-        <input type="text" id="UserName" ng-model="user.userData.name" placeholder="Name" />
-        <br /><br />
+        <input type="text" id="UserName" ng-model="base.name" placeholder="Name" />
 
-        <div ng-repeat="type in base.voteTypes">
-            <input type="radio" ng-model="user.userData.vote" name="name" value="{{type.value}}" id="{{$index}}" required />
-            <label for="{{$index}}">
-                {{type.value}}
-            </label>
+        <div class="clear-both"></div>
+        <br />
+
+        <label for="VoteGroup">Group:</label><br />
+        <input type="text" id="VoteGroup" ng-model="base.group" placeholder="Group" />
+
+        <div class="clear-both"></div>
+        <br />
+
+        <button ng-click="base.join()" type="button" class="btn">Save &amp; Join</button>
+
+        <div class="clear-both"></div>
+        <br />
+
+        <div ng-show="base.showGroup">
+            <div ng-repeat="type in base.voteTypes">
+                <input type="radio" ng-model="user.vote" name="name" value="{{type.value}}" id="{{$index}}" required />
+                <label for="{{$index}}">
+                    {{type.value}}
+                </label>
+            </div>
+
+            <br /><br />
+            <label>{{base.group}} Votes</label>
+            <ul class="user-list">
+                <li ng-animate="'animate'" ng-repeat="user in base.users">
+                    <div class="animated bounceIn user-status--valid" ng-show="user.vote == 'Yes'"></div>
+                    <div class="animated bounceIn user-status--invalid" ng-show="user.vote == 'No'"></div>
+                    <div class="animated bounceIn user-status" ng-show="user.vote == 'Neutral'"></div>
+                    <div class="user-name">{{ user.userName }}</div>
+                </li>
+            </ul>
         </div>
-
-        <br /><br />
-        <label>Votes</label>
-        <ul class="user-list">
-            <li ng-animate="'animate'" ng-repeat="user in base.users">
-                <div class="animated bounceIn user-status--valid" ng-show="user.userData.vote == 'Yes'"></div>
-                <div class="animated bounceIn user-status--invalid" ng-show="user.userData.vote == 'No'"></div>
-                <div class="animated bounceIn user-status" ng-show="user.userData.vote == 'Neutral'"></div>
-                <div class="user-name">{{ user.userData.name }}</div>
-            </li>
-        </ul>
     </main>
     <footer>
         <!--<a href="https://github.com/splintercode" target="_blank" class="built-by">Built by Cory Bateman</a>
