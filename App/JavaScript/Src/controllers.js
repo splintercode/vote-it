@@ -19,7 +19,6 @@
 
         vm.join = function() {
             vm.showGroup = true;
-
             joinGroup(vm.name, vm.group);
         };
 
@@ -27,63 +26,34 @@
             createSession(authData);
         });
 
-        fireBase.onAuth(function() {
-            // Get update list of users
-            //var sync = $firebase(fireBase.child('users'));
-            //vm.users = sync.$asObject();
-        });
-
+        var currentGroup = '';
         function joinGroup(userName, groupName) {
             var auth = $firebaseAuth(fireBase);
             var userAuth = auth.$getAuth();
             var uid = userAuth.uid;
 
-            // store user
-            fireBase.child('/users/' + uid + '/userData/').update({
-                userName: userName,
-                groupName: groupName
-            });
+            // Remove user from current group
+            console.log('/groups/' + currentGroup + '/users/' + uid);
+            fireBase.child('/groups/' + currentGroup + '/users/' + uid).remove();
+            currentGroup = groupName;
 
-            // store group
-            fireBase.child('/groups/' + groupName).once('value', function(group) {
-                if (group.val() !== null) {
-                    console.log('Group Exists!');
+            // Update group user list with new user (creates group if it doesn't exist)
+            fireBase.child('/groups/' + groupName + '/users/' + uid).set({ userName: userName, vote: 'Neutral' });
 
-                    // Update user list with new user
-                    fireBase.child('/groups/' + groupName).child('/users/' + uid).set
-                        ({
-                            userName: userName,
-                            vote: 'Neutral'
-                        });
+            // Update user session
+            fireBase.child('/users/' + uid + '/userData/').update({ groupName: groupName, userName: userName });
 
-                } else {
-                    console.log('Group Does not exist!');
+            // Sync group to vm
+            var syncGroup = $firebase(fireBase.child('/groups/' + groupName + '/users/'));
+            vm.users = syncGroup.$asObject();
 
-                    // Create group
-                    fireBase.child('/groups/' + groupName).set({
-                        groupName: groupName
-                    });
+            // Sync user to vm
+            var syncUser = $firebase(fireBase.child('/groups/' + groupName + '/users/' + uid));
+            var syncObject = syncUser.$asObject();  // download the data into a local object
+            syncObject.$bindTo($scope, 'user'); // FireBase Data Models (3 way binding)
 
-                    // Update user list with new user
-                    fireBase.child('/groups/' + groupName + '/users/' + uid).set
-                    ({
-                        userName: userName,
-                        vote: 'Neutral'
-                    });
-                }
-
-                // Remove user from user list on disconnect
-                fireBase.child('/groups/' + groupName + '/users/' + uid).onDisconnect().remove();
-
-                // sync group to vm
-                var syncGroup = $firebase(fireBase.child('/groups/' + groupName + '/users/'));
-                vm.users = syncGroup.$asObject();
-
-                // sync user to vm
-                var syncUser = $firebase(fireBase.child('/groups/' + groupName + '/users/' + uid));
-                var syncObject = syncUser.$asObject();  // download the data into a local object
-                syncObject.$bindTo($scope, 'user'); // FireBase Data Models (3 way binding)
-            });
+            // Remove user from user list on disconnect
+            fireBase.child('/groups/' + groupName + '/users/' + uid).onDisconnect().remove();
         }
 
         function createSession(authData) {
