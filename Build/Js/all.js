@@ -832,6 +832,16 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
             value: 'Neutral'
         }];
 
+        vm.user = {
+            vote: 'Neutral'
+        }
+
+        vm.vote = function(voteValue) {
+            var userAuth = $firebaseAuth(fireBase).$getAuth();
+            var uid = userAuth.uid;
+            fireBase.child('/groups/' + vm.group + '/users/' + uid).update({ vote: voteValue });
+        };
+
         vm.join = function() {
             vm.showGroup = true;
             joinGroup(vm.name, vm.group);
@@ -846,6 +856,10 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
             var userAuth = $firebaseAuth(fireBase).$getAuth();
             var uid = userAuth.uid;
 
+            // Remove user from current group
+            fireBase.child('/groups/' + currentGroup + '/users/' + uid).remove();
+            currentGroup = groupName;
+
             // Update group user list with new user (creates group if it doesn't exist)
             fireBase.child('/groups/' + groupName + '/users/' + uid).set({ userName: userName, vote: 'Neutral' });
 
@@ -855,14 +869,6 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
             // Sync users to vm
             var usersObject = $firebase(fireBase.child('/groups/' + groupName + '/users/'));
             vm.users = usersObject.$asObject();
-
-            // Sync user to vm
-            var userObject = $firebase(fireBase.child('/groups/' + groupName + '/users/' + uid)).$asObject();
-            userObject.$bindTo($scope, 'user');         // FireBase Data Models (3 way binding)
-
-            // Remove user from current group
-            fireBase.child('/groups/' + currentGroup + '/users/' + uid).remove();
-            currentGroup = groupName;
 
             // Remove user from user list on disconnect
             fireBase.child('/groups/' + groupName + '/users/' + uid).onDisconnect().remove();

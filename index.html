@@ -42,7 +42,7 @@
 
         <div ng-show="base.showGroup">
             <div ng-repeat="type in base.voteTypes">
-                <input type="radio" ng-model="user.vote" name="name" value="{{type.value}}" id="{{$index}}" required />
+                <input type="radio" ng-model="base.user.vote" name="name" value="{{type.value}}" id="{{$index}}" ng-change="base.vote(base.user.vote)" required />
                 <label for="{{$index}}">
                     {{type.value}}
                 </label>
