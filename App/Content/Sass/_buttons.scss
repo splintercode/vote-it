@@ -1,4 +1,12 @@
 ﻿
 .btn {
-    color: #2d2d2d;    
+    background: $color-primary;
+    color: #fff;
+    border: 0;
+    padding: 6px;
+    width: 100%;
+
+    &:hover, &:active {
+        background: darken($color-primary, 4%);
+    }
 }

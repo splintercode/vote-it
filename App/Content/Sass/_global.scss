@@ -3,17 +3,12 @@
     MIT License http://opensource.org/licenses/MIT 
 */
 
-$full-width-max: 48em;
-$full-width-app: 48.125em;
-
 body {
-    font-family: Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 300;
     font-size: 16px;
-    background: #2d2d2d;
-    color: #fff;
-    overflow-x: hidden;
-    padding: 6px;
+    background: #FAF3F2;
+    color: #2d2d2d;
 }
 
 *, *:before, *:after {
@@ -37,6 +32,24 @@ body {
     left: -9999px;
 }
 
+header {
+    padding: 12px;
+    margin-bottom: 24px;
+    background: $color-primary;
+    position: relative;
+    color: #FAF3F2;
+}
+
+h1 {
+    font-size: 2em;
+    line-height: 1.2em;
+    margin: 0;
+
+    @include respond-min(600px) {
+        font-size: 2.2em;
+    }
+}
+
 a {
     color: #2d2d2d;
     cursor: pointer;
@@ -45,44 +58,6 @@ a {
     &:hover {
         color: #2d2d2d;
         text-decoration: none;
-    }
-}
-
-header {
-    border-bottom: 1px solid #fff;
-    padding: 12px;
-    margin-bottom: 24px;
-
-    h1 {
-        margin-bottom: 0;
-    }
-}
-
-main {
-}
-
-footer {
-}
-
-h1 {
-    font-size: 2em;
-    line-height: 1.2em;
-
-    @include respond-min(600px) {
-        font-size: 2.2em;
-    }
-}
-
-h2 {
-    display: inline-block;
-    position: absolute;
-    left: 100px;
-    font-size: 1.2em;
-    margin-top: 16px;
-
-    @include respond-min(600px) {
-        font-size: 1.6em;
-        margin-top: 20px;
     }
 }
 
@@ -100,18 +75,18 @@ h2 {
     border-radius: 50%;
     width: 24px;
     height: 24px;
-    background: #ccc;
+    background: $color-vote-neutral;
     display: inline-block;
     margin-bottom: -4px;
 
     &--valid {
         @extend .user-status;
-        background: #57a341;
+        background: $color-vote-yes;
     }
 
     &--invalid {
         @extend .user-status;
-        background: #b13834;
+        background: $color-vote-no;
     }
 }
 

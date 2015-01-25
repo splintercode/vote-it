@@ -16,11 +16,17 @@
     <!-- Resources -->
     <link href="Build/Css/all.min.css?v=1.2.4" rel="stylesheet" />
 </head>
-<body ng-controller="BaseCtrl as base" ng-cloak>
+<body ng-controller="BaseCtrl as base" ng-cloak ng-init="showPrimaryNav = false" ng-class="showPrimaryNav ? 'pml-open' : ' '">
+    <nav class="nav push-menu-left">
+        <a href="#" class="close-menu-btn" ng-click="showPrimaryNav = false"><i class="icon-cancel float-right"></i></a>
+        <a href="#/" class="nav__link" ng-click="showPrimaryNav = false">Timer</a>
+        <a href="#/settings" class="nav__link" ng-click="showPrimaryNav = false">Settings</a>
+        <a href="#/history" class="nav__link" ng-click="showPrimaryNav = false">History</a>
+        <a href="#/about" class="nav__link" ng-click="showPrimaryNav = false">About</a>
+    </nav>
     <header>
-        <div class="container">
-            <h1>Vote It</h1>
-        </div>
+        <h1>Vote It</h1>
+        <button class="menu-btn toggle-push-left float-right" ng-click="showPrimaryNav = !showPrimaryNav"><i class="icon-menu"></i></button>
     </header>
     <main class="container">
         <label for="UserName">Name:</label><br />
@@ -29,7 +35,7 @@
         <div class="clear-both"></div>
         <br />
 
-        <label for="VoteGroup">Group:</label><br />
+        <label for="VoteGroup">Group:  <small>(case sensitive)</small></label><br />
         <input type="text" id="VoteGroup" ng-model="base.group" placeholder="Group" />
 
         <div class="clear-both"></div>
@@ -64,6 +70,7 @@
         <!--<a href="https://github.com/splintercode" target="_blank" class="built-by">Built by Cory Bateman</a>
         <a href="https://plus.google.com/u/0/102986296317731631979?rel=author" rel="publisher"></a>-->
     </footer>
+    <div class="mask" ng-click="showPrimaryNav = false" ng-init="showPrimaryNav = false" ng-class="showPrimaryNav ? 'mask-on' : ' '"></div>
     <script src="Build/Js/all.js?v=1.2.4" async></script>
 </body>
 </html>
