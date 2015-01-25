@@ -1,0 +1,11 @@
+﻿.message {
+    padding: 8px;
+    margin-bottom: 24px;
+    background: #ccc;
+
+    &--error {
+        @extend .message;
+        background: $color-primary;
+        color: #fff;
+    }
+}

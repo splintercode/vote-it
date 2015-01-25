@@ -44,9 +44,10 @@
             // Remove user from user list on disconnect
             fireBase.child('/groups/' + groupName + '/users/' + uid).onDisconnect().remove();
 
-            // Sync users to vm
+            // Sync users to view model
             var usersObject = $firebase(fireBase.child('/groups/' + groupName + '/users/'));
 
+            // Return view model
             return usersObject.$asObject();
         };
 
@@ -62,10 +63,4 @@
             vote: vote
         };
     }]);
-
-    appServices.factory('userStatusService', function() {
-        var userStatusService = {};
-
-        return userStatusService;
-    });
 }());

@@ -4,7 +4,6 @@
     var appControllers = angular.module('app.controllers', []);
 
     appControllers.controller('BaseCtrl', ['$location', 'userService', function($location, userService) {
-        var fireBase = new Firebase('https://vote-it.firebaseio.com');
         var vm = this;
 
         vm.name = 'Anonymous';

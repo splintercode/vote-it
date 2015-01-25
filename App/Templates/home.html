@@ -1,13 +1,18 @@
-﻿<label for="UserName">Name:</label><br />
-<input type="text" id="UserName" ng-model="base.name" placeholder="Name" />
+﻿
+<form name="joinForm" ng-submit="base.join()">
+    <label for="UserName">Name:</label>
+    <input type="text" id="UserName" name="userName" ng-model="base.name" required placeholder="Name" />
 
-<div class="clear-both"></div>
-<br />
+    <label for="VoteGroup">Group: <small>(case sensitive)</small></label>
+    <input type="text" id="VoteGroup" name="groupName" ng-model="base.group" required placeholder="Group" />
 
-<label for="VoteGroup">Group:  <small>(case sensitive)</small></label><br />
-<input type="text" id="VoteGroup" ng-model="base.group" placeholder="Group" />
+    <div ng-messages="joinForm.groupName.$error" ng-if='joinForm.groupName.$dirty'>
+        <div ng-message="required" class="message--error">You must enter in a group name.</div>
+    </div>
 
-<div class="clear-both"></div>
-<br />
+    <div ng-messages="joinForm.userName.$error" ng-if='joinForm.userName.$dirty'>
+        <div ng-message="required" class="message--error">You must enter in a user name.</div>
+    </div>
 
-<button ng-click="base.join()" type="button" class="btn">Save &amp; Join</button>
+    <button type="submit" class="btn">Save &amp; Join</button>
+</form>
