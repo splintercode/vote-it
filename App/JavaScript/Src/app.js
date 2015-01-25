@@ -1,10 +1,13 @@
 ﻿(function () {
     'use strict';
 
+    angular.module('templates', []);
+
     var app = angular.module('app', [
         'ngRoute',
         'ngAnimate',
         'firebase',
+        'templates',
         'app.filters',
         'app.services',
         'app.directives',
@@ -12,12 +15,18 @@
     ]);
 
     app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-        //$routeProvider
-        //.when('/Book/:bookId/ch/:chapterId', {
-        //    templateUrl: 'chapter.html',
-        //    controller: 'ChapterController'
-        //});
-
         //$locationProvider.html5Mode(true);
+
+        $routeProvider.when('/', {
+            templateUrl: 'home.html'
+        });
+        $routeProvider.when('/vote', {
+            templateUrl: 'vote.html'
+        });
+        $routeProvider.when('/about', {
+            templateUrl: 'about.html'
+        });
+
+        $routeProvider.otherwise({ redirectTo: '/' });
     }]);
 }());

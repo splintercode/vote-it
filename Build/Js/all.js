@@ -793,10 +793,13 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
 (function () {
     'use strict';
 
+    angular.module('templates', []);
+
     var app = angular.module('app', [
         'ngRoute',
         'ngAnimate',
         'firebase',
+        'templates',
         'app.filters',
         'app.services',
         'app.directives',
@@ -804,13 +807,19 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
     ]);
 
     app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-        //$routeProvider
-        //.when('/Book/:bookId/ch/:chapterId', {
-        //    templateUrl: 'chapter.html',
-        //    controller: 'ChapterController'
-        //});
-
         //$locationProvider.html5Mode(true);
+
+        $routeProvider.when('/', {
+            templateUrl: 'home.html'
+        });
+        $routeProvider.when('/vote', {
+            templateUrl: 'vote.html'
+        });
+        $routeProvider.when('/about', {
+            templateUrl: 'about.html'
+        });
+
+        $routeProvider.otherwise({ redirectTo: '/' });
     }]);
 }());
 (function() {
@@ -954,3 +963,6 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
         return userStatusService;
     });
 }());
+angular.module("templates").run(["$templateCache", function($templateCache) {$templateCache.put("about.html","<h1>About</h1>");
+$templateCache.put("home.html","<h1>Home</h1>");
+$templateCache.put("vote.html","<h1>Vote</h1>");}]);

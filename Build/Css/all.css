@@ -1326,13 +1326,13 @@ header {
   color: #FAF3F2;
 }
 
-h1 {
+h1, .logo {
   font-size: 2em;
   line-height: 1.2em;
   margin: 0;
 }
 @media screen and (min-width: 600px) {
-  h1 {
+  h1, .logo {
     font-size: 2.2em;
   }
 }

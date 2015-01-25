@@ -22,16 +22,31 @@ var sassSource = [
     './App/Content/Sass/*.scss'
 ];
 
-gulp.task('watch', function () {
+var templatesSource = [
+    './App/Templates/**/*.html'
+];
+
+var compiledTemplates = [
+    './Build/Js/templates.js'
+];
+
+gulp.task('watch', function() {
+    gulp.watch(templatesSource, ['template', 'js']);
     gulp.watch(sassSource, ['styles']);
     gulp.watch(jsSource, ['js']);
     gulp.watch(jsSource, ['hint']);
 });
 
+gulp.task('template', function() {
+    gulp.src(templatesSource)
+        .pipe(plug.angularTemplatecache())
+        .pipe(gulp.dest('Build/Js'));
+});
+
 gulp.task('styles', function () {
     return gulp
         .src(sassSource)
-        .pipe(plug.rubySass({ style: 'expanded' }))
+        .pipe(plug.rubySass({ style: 'expanded' })).on('error', catchError)
         .pipe(plug.autoprefixer('last 2 version', 'ie8', 'ie9'))
         .pipe(gulp.dest('./Build/Css'))
         .pipe(plug.rename({ suffix: '.min' }))
@@ -41,7 +56,7 @@ gulp.task('styles', function () {
 
 gulp.task('js', function () {
     return gulp
-        .src(jsLibraries.concat(jsSource))
+        .src(jsLibraries.concat(jsSource).concat(compiledTemplates))
         .pipe(plug.concat('all.js'))
         .pipe(gulp.dest('./Build/Js'))
         .pipe(plug.rename({ suffix: '.min' }))
@@ -52,6 +67,11 @@ gulp.task('js', function () {
 gulp.task('hint', function () {
     return gulp
         .src(jsSource)
-        .pipe(plug.jshint())
+        .pipe(plug.jshint()).on('error', catchError)
         .pipe(plug.jshint.reporter('jshint-stylish'));
 });
+
+var catchError = function(err) {
+    console.log(err);
+    this.emit('end');
+};
