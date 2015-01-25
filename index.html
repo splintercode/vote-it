@@ -17,22 +17,22 @@
     <link href="Build/Css/all.min.css?v=1.2.4" rel="stylesheet" />
 </head>
 <body ng-controller="BaseCtrl as base" ng-cloak ng-class="base.showNav ? 'pml-open' : ' '">
+
     <nav class="nav push-menu-left">
-        <a href="#" class="close-menu-btn" ng-click="base.toggleNav()"><i class="icon-cancel float-right"></i></a>
+        <button ng-click="base.toggleNav()" class="close-menu-btn"><i class="icon-cancel float-right"></i></button>
         <a href="#/" class="nav__link" ng-click="base.toggleNav()">Join</a>
         <a href="#/vote" class="nav__link" ng-click="base.toggleNav()">Vote</a>
         <a href="#/about" class="nav__link" ng-click="base.toggleNav()">About</a>
     </nav>
+
     <header>
-        <div class="logo">Vote It</div>
+        <a href="#/" class="logo">Vote It</a>
         <button class="menu-btn toggle-push-left float-right" ng-click="base.toggleNav()"><i class="icon-menu"></i></button>
     </header>
-    <main ng-view class="container">
 
+    <main ng-view class="container fade">
     </main>
-    <footer>
 
-    </footer>
     <div class="mask" ng-click="base.toggleNav()" ng-class="base.showNav ? 'mask-on' : ' '"></div>
     <script src="Build/Js/all.js?v=1.2.4" async></script>
 </body>

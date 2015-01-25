@@ -52,6 +52,13 @@ h1, .logo {
 
 .logo {
     margin-bottom: 0;
+    text-decoration: none;
+    color: #FAF3F2;
+
+    &:active, &:focus, &:hover {
+        text-decoration: none;
+        color: #FAF3F2;
+    }
 }
 
 a {

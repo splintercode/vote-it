@@ -11,26 +11,3 @@
 <br />
 
 <button ng-click="base.join()" type="button" class="btn">Save &amp; Join</button>
-
-<div class="clear-both"></div>
-<br />
-
-<div ng-show="base.showGroup">
-    <div ng-repeat="type in base.voteTypes">
-        <input type="radio" ng-model="base.user.vote" name="name" value="{{type.value}}" id="{{$index}}" ng-change="base.vote(base.user.vote)" required />
-        <label for="{{$index}}">
-            {{type.value}}
-        </label>
-    </div>
-
-    <br /><br />
-    <label>{{base.group}} Votes</label>
-    <ul class="user-list">
-        <li ng-animate="'animate'" ng-repeat="user in base.users">
-            <div class="animated bounceIn user-status--valid" ng-show="user.vote == 'Yes'"></div>
-            <div class="animated bounceIn user-status--invalid" ng-show="user.vote == 'No'"></div>
-            <div class="animated bounceIn user-status" ng-show="user.vote == 'Neutral'"></div>
-            <div class="user-name">{{ user.userName }}</div>
-        </li>
-    </ul>
-</div>

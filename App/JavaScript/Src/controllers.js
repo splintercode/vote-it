@@ -3,7 +3,7 @@
 
     var appControllers = angular.module('app.controllers', []);
 
-    appControllers.controller('BaseCtrl', ['$scope', '$firebase', '$firebaseAuth', function($scope, $firebase, $firebaseAuth) {
+    appControllers.controller('BaseCtrl', ['$scope', '$location', '$firebase', '$firebaseAuth', function($scope, $location, $firebase, $firebaseAuth) {
         var fireBase = new Firebase('https://vote-it.firebaseio.com');
         var vm = this;
 
@@ -33,7 +33,7 @@
         };
 
         vm.join = function() {
-            vm.showGroup = true;
+            $location.path('/vote');
             joinGroup(vm.name, vm.group);
         };
 
