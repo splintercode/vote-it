@@ -9,6 +9,7 @@
 
         vm.name = 'Anonymous';
         vm.showGroup = false;
+        vm.showNav = false;
         vm.voteTypes = [{
             value: 'Yes'
         }, {
@@ -20,6 +21,10 @@
         vm.user = {
             vote: 'Neutral'
         }
+
+        vm.toggleNav = function() {
+            vm.showNav = !vm.showNav;
+        };
 
         vm.vote = function(voteValue) {
             var userAuth = $firebaseAuth(fireBase).$getAuth();

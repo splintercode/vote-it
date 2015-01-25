@@ -16,63 +16,24 @@
     <!-- Resources -->
     <link href="Build/Css/all.min.css?v=1.2.4" rel="stylesheet" />
 </head>
-<body ng-controller="BaseCtrl as base" ng-cloak ng-init="showPrimaryNav = false" ng-class="showPrimaryNav ? 'pml-open' : ' '">
+<body ng-controller="BaseCtrl as base" ng-cloak ng-class="base.showNav ? 'pml-open' : ' '">
     <nav class="nav push-menu-left">
-        <a href="#" class="close-menu-btn" ng-click="showPrimaryNav = false"><i class="icon-cancel float-right"></i></a>
-        <a href="#/" class="nav__link" ng-click="showPrimaryNav = false">Join</a>
-        <a href="#/vote" class="nav__link" ng-click="showPrimaryNav = false">Vote</a>
-        <a href="#/about" class="nav__link" ng-click="showPrimaryNav = false">About</a>
+        <a href="#" class="close-menu-btn" ng-click="base.toggleNav()"><i class="icon-cancel float-right"></i></a>
+        <a href="#/" class="nav__link" ng-click="base.toggleNav()">Join</a>
+        <a href="#/vote" class="nav__link" ng-click="base.toggleNav()">Vote</a>
+        <a href="#/about" class="nav__link" ng-click="base.toggleNav()">About</a>
     </nav>
     <header>
         <div class="logo">Vote It</div>
-        <button class="menu-btn toggle-push-left float-right" ng-click="showPrimaryNav = !showPrimaryNav"><i class="icon-menu"></i></button>
+        <button class="menu-btn toggle-push-left float-right" ng-click="base.toggleNav()"><i class="icon-menu"></i></button>
     </header>
-    <main class="container">
-        <label for="UserName">Name:</label><br />
-        <input type="text" id="UserName" ng-model="base.name" placeholder="Name" />
+    <main ng-view class="container">
 
-        <div class="clear-both"></div>
-        <br />
-
-        <label for="VoteGroup">Group:  <small>(case sensitive)</small></label><br />
-        <input type="text" id="VoteGroup" ng-model="base.group" placeholder="Group" />
-
-        <div class="clear-both"></div>
-        <br />
-
-        <button ng-click="base.join()" type="button" class="btn">Save &amp; Join</button>
-
-        <div class="clear-both"></div>
-        <br />
-
-        <div ng-show="base.showGroup">
-            <div ng-repeat="type in base.voteTypes">
-                <input type="radio" ng-model="base.user.vote" name="name" value="{{type.value}}" id="{{$index}}" ng-change="base.vote(base.user.vote)" required />
-                <label for="{{$index}}">
-                    {{type.value}}
-                </label>
-            </div>
-
-            <br /><br />
-            <label>{{base.group}} Votes</label>
-            <ul class="user-list">
-                <li ng-animate="'animate'" ng-repeat="user in base.users">
-                    <div class="animated bounceIn user-status--valid" ng-show="user.vote == 'Yes'"></div>
-                    <div class="animated bounceIn user-status--invalid" ng-show="user.vote == 'No'"></div>
-                    <div class="animated bounceIn user-status" ng-show="user.vote == 'Neutral'"></div>
-                    <div class="user-name">{{ user.userName }}</div>
-                </li>
-            </ul>
-        </div>
     </main>
-    <div data-ng-view class="reveal-animation">
-
-    </div>
     <footer>
-        <!--<a href="https://github.com/splintercode" target="_blank" class="built-by">Built by Cory Bateman</a>
-        <a href="https://plus.google.com/u/0/102986296317731631979?rel=author" rel="publisher"></a>-->
+
     </footer>
-    <div class="mask" ng-click="showPrimaryNav = false" ng-init="showPrimaryNav = false" ng-class="showPrimaryNav ? 'mask-on' : ' '"></div>
+    <div class="mask" ng-click="base.toggleNav()" ng-class="base.showNav ? 'mask-on' : ' '"></div>
     <script src="Build/Js/all.js?v=1.2.4" async></script>
 </body>
 </html>

@@ -43,11 +43,15 @@ header {
 h1, .logo {
     font-size: 2em;
     line-height: 1.2em;
-    margin: 0;
+    margin: 0 0 24px 0;
 
     @include respond-min(600px) {
         font-size: 2.2em;
     }
+}
+
+.logo {
+    margin-bottom: 0;
 }
 
 a {
