@@ -827,13 +827,14 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
 
     var appControllers = angular.module('app.controllers', []);
 
-    appControllers.controller('BaseCtrl', ['$scope', '$location', '$firebase', '$firebaseAuth', 'userService', function($scope, $location, $firebase, $firebaseAuth, userService) {
+    appControllers.controller('BaseCtrl', ['$location', 'userService', function($location, userService) {
         var fireBase = new Firebase('https://vote-it.firebaseio.com');
         var vm = this;
 
         vm.name = 'Anonymous';
         vm.showGroup = false;
         vm.showNav = false;
+
         vm.voteTypes = [{
             value: 'Yes'
         }, {
@@ -851,40 +852,15 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
         };
 
         vm.vote = function(voteValue) {
-            var userAuth = $firebaseAuth(fireBase).$getAuth();
-            var uid = userAuth.uid;
-            fireBase.child('/groups/' + vm.group + '/users/' + uid).update({ vote: voteValue });
+            userService.vote(voteValue);
         };
 
         vm.join = function() {
             $location.path('/vote');
-            joinGroup(vm.name, vm.group);
+            vm.users = userService.joinGroup(vm.name, vm.group);
         };
 
         userService.authAnonymously(vm.name);
-
-        var currentGroup = '';
-        function joinGroup(userName, groupName) {
-            var userAuth = $firebaseAuth(fireBase).$getAuth();
-            var uid = userAuth.uid;
-
-            // Remove user from current group
-            fireBase.child('/groups/' + currentGroup + '/users/' + uid).remove();
-            currentGroup = groupName;
-
-            // Update group user list with new user (creates group if it doesn't exist)
-            fireBase.child('/groups/' + groupName + '/users/' + uid).set({ userName: userName, vote: 'Neutral' });
-
-            // Update user session
-            fireBase.child('/users/' + uid + '/userData/').update({ groupName: groupName, userName: userName });
-
-            // Sync users to vm
-            var usersObject = $firebase(fireBase.child('/groups/' + groupName + '/users/'));
-            vm.users = usersObject.$asObject();
-
-            // Remove user from user list on disconnect
-            fireBase.child('/groups/' + groupName + '/users/' + uid).onDisconnect().remove();
-        }
     }]);
 }());
 
@@ -915,8 +891,9 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
 
     var appServices = angular.module('app.services', []).value('version', '1.5.4');
 
-    appServices.factory('userService', ['$q', '$firebase', function($q, $firebase) {
+    appServices.factory('userService', ['$q', '$firebase', '$firebaseAuth', function($q, $firebase, $firebaseAuth) {
         var fireBase = new Firebase('https://vote-it.firebaseio.com');
+        var currentGroup = '';
 
         var authAnonymously = function(userName) {
             fireBase.authAnonymously(function(error, authData) {
@@ -939,11 +916,38 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
         };
 
         var joinGroup = function(userName, groupName) {
+            var userAuth = $firebaseAuth(fireBase).$getAuth();
+            var uid = userAuth.uid;
 
+            // Remove user from current group
+            fireBase.child('/groups/' + currentGroup + '/users/' + uid).remove();
+            currentGroup = groupName;
+
+            // Update group user list with new user (creates group if it doesn't exist)
+            fireBase.child('/groups/' + groupName + '/users/' + uid).set({ userName: userName, vote: 'Neutral' });
+
+            // Update user session
+            fireBase.child('/users/' + uid + '/userData/').update({ groupName: groupName, userName: userName });
+
+            // Remove user from user list on disconnect
+            fireBase.child('/groups/' + groupName + '/users/' + uid).onDisconnect().remove();
+
+            // Sync users to vm
+            var usersObject = $firebase(fireBase.child('/groups/' + groupName + '/users/'));
+
+            return usersObject.$asObject();
+        };
+
+        var vote = function(voteValue) {
+            var userAuth = $firebaseAuth(fireBase).$getAuth();
+            var uid = userAuth.uid;
+            fireBase.child('/groups/' + currentGroup + '/users/' + uid).update({ vote: voteValue });
         };
 
         return {
-            authAnonymously: authAnonymously
+            authAnonymously: authAnonymously,
+            joinGroup: joinGroup,
+            vote: vote
         };
     }]);
 
