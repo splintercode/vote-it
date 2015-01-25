@@ -3,7 +3,7 @@
 
     var appControllers = angular.module('app.controllers', []);
 
-    appControllers.controller('BaseCtrl', ['$scope', '$location', '$firebase', '$firebaseAuth', function($scope, $location, $firebase, $firebaseAuth) {
+    appControllers.controller('BaseCtrl', ['$scope', '$location', '$firebase', '$firebaseAuth', 'userService', function($scope, $location, $firebase, $firebaseAuth, userService) {
         var fireBase = new Firebase('https://vote-it.firebaseio.com');
         var vm = this;
 
@@ -37,9 +37,7 @@
             joinGroup(vm.name, vm.group);
         };
 
-        fireBase.authAnonymously(function(error, authData) {
-            createSession(authData);
-        });
+        userService.authAnonymously(vm.name);
 
         var currentGroup = '';
         function joinGroup(userName, groupName) {
@@ -62,24 +60,6 @@
 
             // Remove user from user list on disconnect
             fireBase.child('/groups/' + groupName + '/users/' + uid).onDisconnect().remove();
-        }
-
-        function createSession(authData) {
-            if (authData) {
-                var userData = {
-                    authData: authData,
-                    userData: {
-                        userName: vm.name,
-                        groupName: ''
-                    }
-                };
-
-                var usersRef = fireBase.child('/users/' + authData.uid);
-                usersRef.set(userData);              // Save user data
-                usersRef.onDisconnect().remove();    // Delete user data on end of session
-            } else {
-                console.log('Login Failed!', error);
-            }
         }
     }]);
 }());

@@ -827,7 +827,7 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
 
     var appControllers = angular.module('app.controllers', []);
 
-    appControllers.controller('BaseCtrl', ['$scope', '$location', '$firebase', '$firebaseAuth', function($scope, $location, $firebase, $firebaseAuth) {
+    appControllers.controller('BaseCtrl', ['$scope', '$location', '$firebase', '$firebaseAuth', 'userService', function($scope, $location, $firebase, $firebaseAuth, userService) {
         var fireBase = new Firebase('https://vote-it.firebaseio.com');
         var vm = this;
 
@@ -861,9 +861,7 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
             joinGroup(vm.name, vm.group);
         };
 
-        fireBase.authAnonymously(function(error, authData) {
-            createSession(authData);
-        });
+        userService.authAnonymously(vm.name);
 
         var currentGroup = '';
         function joinGroup(userName, groupName) {
@@ -886,24 +884,6 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
 
             // Remove user from user list on disconnect
             fireBase.child('/groups/' + groupName + '/users/' + uid).onDisconnect().remove();
-        }
-
-        function createSession(authData) {
-            if (authData) {
-                var userData = {
-                    authData: authData,
-                    userData: {
-                        userName: vm.name,
-                        groupName: ''
-                    }
-                };
-
-                var usersRef = fireBase.child('/users/' + authData.uid);
-                usersRef.set(userData);              // Save user data
-                usersRef.onDisconnect().remove();    // Delete user data on end of session
-            } else {
-                console.log('Login Failed!', error);
-            }
         }
     }]);
 }());
@@ -936,34 +916,39 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
     var appServices = angular.module('app.services', []).value('version', '1.5.4');
 
     appServices.factory('userService', ['$q', '$firebase', function($q, $firebase) {
-        var userService = {};
+        var fireBase = new Firebase('https://vote-it.firebaseio.com');
 
+        var authAnonymously = function(userName) {
+            fireBase.authAnonymously(function(error, authData) {
+                if (authData) {
+                    var userData = {
+                        authData: authData,
+                        userData: {
+                            userName: userName,
+                            groupName: ''
+                        }
+                    };
 
-        return userService;
+                    var usersRef = fireBase.child('/users/' + authData.uid);
+                    usersRef.set(userData);              // Save user data
+                    usersRef.onDisconnect().remove();    // Delete user data on end of session
+                } else {
+                    console.log('Login Failed!', error);
+                }
+            });
+        };
+
+        var joinGroup = function(userName, groupName) {
+
+        };
+
+        return {
+            authAnonymously: authAnonymously
+        };
     }]);
 
     appServices.factory('userStatusService', function() {
         var userStatusService = {};
-
-        //var listRef = new Firebase("https://verify-it.firebaseio.com/presence/");
-        //var userRef = listRef.push();
-
-        //// Add ourselves to presence list when online.
-        //var presenceRef = new Firebase("https://verify-it.firebaseio.com/.info/connected");
-        //presenceRef.on("value", function(snap) {
-        //    if (snap.val()) {
-        //        userRef.set(true);
-
-        //        // Remove ourselves when we disconnect.
-        //        userRef.onDisconnect().remove();
-        //    }
-        //});
-
-        //// Number of online users is the number of objects in the presence list.
-        //listRef.on("value", function(snap) {
-        //    console.log("# of online users = " + snap.numChildren());
-        //    vm.activeUsers = snap.numChildren();
-        //});
 
         return userStatusService;
     });
