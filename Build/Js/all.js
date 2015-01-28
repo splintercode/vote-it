@@ -4594,7 +4594,7 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
 
         userService.authAnonymously(vm.name);
 
-        $scope.$watch(function () {
+        $scope.$watchCollection(function() {
             return vm.users;
         }, function(newValue, oldValue) {
             updateChart();

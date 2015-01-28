@@ -40,7 +40,7 @@
 
         userService.authAnonymously(vm.name);
 
-        $scope.$watch(function () {
+        $scope.$watchCollection(function() {
             return vm.users;
         }, function(newValue, oldValue) {
             updateChart();
