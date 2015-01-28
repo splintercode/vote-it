@@ -2,10 +2,12 @@
 var plug = require('gulp-load-plugins')();
 
 var jsLibraries = [
+    './App/JavaScript/Libraries/chart.js',
     './App/JavaScript/Libraries/Angular/angular.js',
     './App/JavaScript/Libraries/Angular/angular-route.js',
     './App/JavaScript/Libraries/Angular/angular-animate.js',
     './App/JavaScript/Libraries/Angular/angular-messages.js',
+    './App/JavaScript/Libraries/Angular/angular-chart.js',
     './App/JavaScript/Libraries/Firebase/firebase.js',
     './App/JavaScript/Libraries/Firebase/angular-fire.js',
     './App/JavaScript/Libraries/bowser.js',

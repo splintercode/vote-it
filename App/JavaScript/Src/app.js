@@ -8,6 +8,7 @@
         'ngAnimate',
         'ngMessages',
         'firebase',
+        'chart.js',
         'templates',
         'app.filters',
         'app.services',
@@ -21,9 +22,11 @@
         $routeProvider.when('/', {
             templateUrl: 'home.html'
         });
+
         $routeProvider.when('/vote', {
             templateUrl: 'vote.html'
         });
+
         $routeProvider.when('/about', {
             templateUrl: 'about.html'
         });

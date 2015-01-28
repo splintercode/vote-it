@@ -36,8 +36,16 @@ header {
     padding: 12px;
     margin-bottom: 24px;
     background: $color-primary;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     color: #FAF3F2;
+    border-bottom: 1px solid darken($color-primary, 10%);
+
+    @include respond-min($nav-break) {
+        z-index: 100;
+    }
 }
 
 h1, .logo {

@@ -1,19 +1,27 @@
 ﻿<h1>Vote</h1>
-
-<div ng-repeat="type in base.voteTypes">
-    <input type="radio" ng-model="base.user.vote" name="name" value="{{type.value}}" id="{{$index}}" ng-change="base.vote(base.user.vote)" required />
-    <label for="{{$index}}">
-        {{type.value}}
-    </label>
+<div class="row">
+    <div class="col-5-xs">
+        <div ng-repeat="type in base.voteTypes">
+            <input type="radio" ng-model="base.user.vote" name="name" value="{{type.value}}" id="{{$index}}" ng-change="base.vote(base.user.vote)" required />
+            <label for="{{$index}}">
+                {{type.value}}
+            </label>
+        </div>
+    </div>
+    <div class="col-7-xs">
+        <canvas id="pie" class="chart chart-pie" data="base.data" labels="base.chartLabels"></canvas>
+    </div>
 </div>
-
-<br />
-<small>Group: {{base.group}}</small>
-<ul class="user-list">
-    <li ng-animate="'animate'" ng-repeat="user in base.users">
-        <div class="animated bounceIn user-status--valid" ng-show="user.vote == 'Yes'"></div>
-        <div class="animated bounceIn user-status--invalid" ng-show="user.vote == 'No'"></div>
-        <div class="animated bounceIn user-status" ng-show="user.vote == 'Neutral'"></div>
-        <div class="user-name">{{ user.userName }}</div>
-    </li>
-</ul>
+<div class="row">
+    <div class="col-12-md">
+        <small>Group: {{base.group}}</small>
+        <ul class="user-list">
+            <li ng-animate="'animate'" ng-repeat="user in base.users">
+                <div class="animated bounceIn user-status--valid" ng-show="user.vote == 'Yes'"></div>
+                <div class="animated bounceIn user-status--invalid" ng-show="user.vote == 'No'"></div>
+                <div class="animated bounceIn user-status" ng-show="user.vote == 'Neutral'"></div>
+                <div class="user-name">{{ user.userName }}</div>
+            </li>
+        </ul>
+    </div>
+</div>

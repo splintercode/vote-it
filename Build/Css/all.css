@@ -191,6 +191,33 @@
 }
 
 /* 'εáë' */
+.chart-legend, .bar-legend, .line-legend, .pie-legend, .radar-legend, .polararea-legend, .doughnut-legend {
+  list-style-type: none;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.chart-legend li, .bar-legend li, .line-legend li, .pie-legend li, .radar-legend li, .polararea-legend li, .doughnut-legend li {
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+  margin-bottom: 4px;
+  border-radius: 5px;
+  padding: 2px 8px 2px 28px;
+  font-size: smaller;
+  cursor: default;
+}
+
+.chart-legend li span, .bar-legend li span, .line-legend li span, .pie-legend li span, .radar-legend li span, .polararea-legend li span, .doughnut-legend li span {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+}
+
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -1026,6 +1053,13 @@ table, fieldset, figure, pre, .header, img {
   top: 75px;
   left: 0;
 }
+@media screen and (min-width: 55.5em) {
+  .fade {
+    left: 248px;
+    max-width: 600px;
+    margin-top: 10px;
+  }
+}
 
 .fade.ng-enter,
 .fade.ng-leave {
@@ -1242,6 +1276,11 @@ input[type="radio"]:checked + label:after {
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
 }
+@media screen and (min-width: 55.5em) {
+  .mask-on {
+    display: none;
+  }
+}
 
 .menu-btn {
   position: absolute;
@@ -1251,6 +1290,11 @@ input[type="radio"]:checked + label:after {
   font-size: 1.8em;
   background: 0 0;
   border: none;
+}
+@media screen and (min-width: 55.5em) {
+  .menu-btn {
+    display: none;
+  }
 }
 
 .close-menu-btn {
@@ -1270,9 +1314,6 @@ input[type="radio"]:checked + label:after {
   background-color: #D76450;
   overflow: hidden;
   transition: all 0.3s;
-  /*@include respond-min($full-width-max) {
-      position: absolute;
-  }*/
 }
 .nav .nav__link {
   display: block;
@@ -1284,7 +1325,7 @@ input[type="radio"]:checked + label:after {
   border-bottom: 1px solid #c7442d;
 }
 .nav .nav__link:hover, .nav .nav__link:active, .nav .nav__link:focus {
-  background: #c7442d;
+  background: #d2523b;
 }
 .nav .close-menu-btn {
   color: #fff;
@@ -1299,6 +1340,16 @@ input[type="radio"]:checked + label:after {
 }
 .nav .close-menu-btn:focus, .nav .close-menu-btn:active {
   outline: none;
+}
+@media screen and (min-width: 55.5em) {
+  .nav {
+    position: absolute;
+    left: 0;
+    top: 65px;
+  }
+  .nav .close-menu-btn {
+    display: none;
+  }
 }
 
 .pml-open .nav {
@@ -1340,8 +1391,17 @@ header {
   padding: 12px;
   margin-bottom: 24px;
   background: #D76450;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   color: #FAF3F2;
+  border-bottom: 1px solid #c7442d;
+}
+@media screen and (min-width: 55.5em) {
+  header {
+    z-index: 100;
+  }
 }
 
 h1, .logo {
