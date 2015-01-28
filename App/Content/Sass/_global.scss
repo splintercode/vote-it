@@ -39,12 +39,13 @@ header {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 2;
     width: 100%;
     color: #FAF3F2;
     border-bottom: 1px solid darken($color-primary, 10%);
 
     @include respond-min($nav-break) {
-        z-index: 100;
+        z-index: 4;
     }
 }
 
