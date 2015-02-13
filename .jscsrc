@@ -1,5 +1,6 @@
-// Google Preset w/ mods
+// Google Preset Modified by Cory Bateman
 {
+    "esnext":  true,
     "requireCurlyBraces": [
         "if",
         "else",
@@ -12,11 +13,11 @@
     "requireOperatorBeforeLineBreak": true,
     "requireCamelCaseOrUpperCaseIdentifiers": true,
     "maximumLineLength": {
-        "value": 150,               // Mod
+        "value": 150, // Mod
         "allowComments": true,
         "allowRegex": true
     },
-    "validateIndentation": 4,       // Mod
+    "validateIndentation": 4, // Mod
     "validateQuoteMarks": "'",
 
     "disallowMultipleLineStrings": true,
@@ -76,14 +77,13 @@
     "requireSpaceAfterBinaryOperators": true,
     "requireSpacesInConditionalExpression": true,
     "requireSpaceBeforeBlockStatements": true,
-    "requireLineFeedAtFileEnd": true,
     "requireSpacesInFunctionExpression": {
         "beforeOpeningCurlyBrace": true
     },
     "requireSpacesInsideObjectBrackets": "all", // Mod
-    "requireParenthesesAroundIIFE": true,       // Mod
-    "disallowKeywords": [ "with" ],             // Mod
-    "disallowKeywordsOnNewLine": [ "else" ],    // Mod
+    "requireParenthesesAroundIIFE": true, // Mod
+    "disallowKeywords": [ "with" ], // Mod
+    "disallowKeywordsOnNewLine": [ "else" ], // Mod
     "disallowSpacesInAnonymousFunctionExpression": {
         "beforeOpeningRoundBrace": true
     },
