@@ -7,7 +7,15 @@
         var fireBase = new Firebase('https://vote-it.firebaseio.com');
         var currentGroup = '';
 
-        var authAnonymously = function(userName) {
+        var userService = {
+            authAnonymously: authAnonymously,
+            joinGroup: joinGroup,
+            vote: vote
+        };
+
+        return userService;
+
+        function authAnonymously(userName) {
             fireBase.authAnonymously(function(error, authData) {
                 if (authData) {
                     var userData = {
@@ -25,9 +33,9 @@
                     console.log('Login Failed!', error);
                 }
             });
-        };
+        }
 
-        var joinGroup = function(userName, groupName) {
+        function joinGroup(userName, groupName) {
             var userAuth = $firebaseAuth(fireBase).$getAuth();
             var uid = userAuth.uid;
 
@@ -49,18 +57,12 @@
 
             // Return view model
             return usersObject.$asObject();
-        };
+        }
 
-        var vote = function(voteValue) {
+        function vote(voteValue) {
             var userAuth = $firebaseAuth(fireBase).$getAuth();
             var uid = userAuth.uid;
             fireBase.child('/groups/' + currentGroup + '/users/' + uid).update({ vote: voteValue });
-        };
-
-        return {
-            authAnonymously: authAnonymously,
-            joinGroup: joinGroup,
-            vote: vote
-        };
+        }
     }]);
 }());

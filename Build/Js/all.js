@@ -4560,7 +4560,7 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
     appControllers.controller('BaseCtrl', ['$scope', '$location', 'userService', function($scope, $location, userService) {
         var vm = this;
 
-        vm.name = 'Anonymous';
+        vm.name = 'Anonymous a';
         vm.showGroup = false;
         vm.showNav = false;
         vm.users = [];
@@ -4654,7 +4654,15 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
         var fireBase = new Firebase('https://vote-it.firebaseio.com');
         var currentGroup = '';
 
-        var authAnonymously = function(userName) {
+        var userService = {
+            authAnonymously: authAnonymously,
+            joinGroup: joinGroup,
+            vote: vote
+        };
+
+        return userService;
+
+        function authAnonymously(userName) {
             fireBase.authAnonymously(function(error, authData) {
                 if (authData) {
                     var userData = {
@@ -4672,9 +4680,9 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
                     console.log('Login Failed!', error);
                 }
             });
-        };
+        }
 
-        var joinGroup = function(userName, groupName) {
+        function joinGroup(userName, groupName) {
             var userAuth = $firebaseAuth(fireBase).$getAuth();
             var uid = userAuth.uid;
 
@@ -4696,19 +4704,13 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
 
             // Return view model
             return usersObject.$asObject();
-        };
+        }
 
-        var vote = function(voteValue) {
+        function vote(voteValue) {
             var userAuth = $firebaseAuth(fireBase).$getAuth();
             var uid = userAuth.uid;
             fireBase.child('/groups/' + currentGroup + '/users/' + uid).update({ vote: voteValue });
-        };
-
-        return {
-            authAnonymously: authAnonymously,
-            joinGroup: joinGroup,
-            vote: vote
-        };
+        }
     }]);
 }());
 angular.module("templates").run(["$templateCache", function($templateCache) {$templateCache.put("about.html","<h1>About</h1>\r\n<p>\r\n    A simple real time team voting app. Simply have two or more people join a room (case sensitive) and you will be able to vote anonymously or\r\n    by name in real time. You can choose between yes, no and neutral. This is useful for teams to anonymously vote on technical issues or scrum cases.\r\n</p>\r\n<p>\r\n    <a href=\"https://github.com/splintercode\" target=\"_blank\" class=\"built-by\">Built by Cory Bateman</a>\r\n    <a href=\"https://plus.google.com/u/0/102986296317731631979?rel=author\" rel=\"publisher\"></a>\r\n</p>");
