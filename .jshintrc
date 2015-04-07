@@ -83,5 +83,17 @@
     "white"         : false,    // true: Check against strict whitespace and indentation rules
 
     // Custom Globals
-    "globals"       : { "angular": false }  // additional predefined global variables
+    "globals"       : {
+      "angular": false,
+
+      // NodeJS
+      "module": true,
+      "__dirname": true,
+
+      // Jasmine Globals
+      "if": true,
+      "expect": true,
+      "describe": true,
+      "it": true
+    }
 }

@@ -2,23 +2,23 @@
 var plug = require('gulp-load-plugins')();
 
 var jsLibraries = [
-    './App/JavaScript/Libraries/chart.js',
-    './App/JavaScript/Libraries/Angular/angular.js',
-    './App/JavaScript/Libraries/Angular/angular-route.js',
-    './App/JavaScript/Libraries/Angular/angular-animate.js',
-    './App/JavaScript/Libraries/Angular/angular-messages.js',
-    './App/JavaScript/Libraries/Angular/angular-chart.js',
-    './App/JavaScript/Libraries/Firebase/firebase.js',
-    './App/JavaScript/Libraries/Firebase/angular-fire.js',
-    './App/JavaScript/Libraries/bowser.js',
+    './App/Libraries/chart.js',
+    './App/Libraries/Angular/angular.js',
+    './App/Libraries/Angular/angular-route.js',
+    './App/Libraries/Angular/angular-animate.js',
+    './App/Libraries/Angular/angular-messages.js',
+    './App/Libraries/Angular/angular-chart.js',
+    './App/Libraries/Firebase/firebase.js',
+    './App/Libraries/Firebase/angular-fire.js',
+    './App/Libraries/bowser.js',
 ];
 
 var jsSource = [
-    './App/JavaScript/Src/app.js',
-    './App/JavaScript/Src/controllers.js',
-    './App/JavaScript/Src/directives.js',
-    './App/JavaScript/Src/filters.js',
-    './App/JavaScript/Src/services.js'
+    './App/Src/app.js',
+    './App/Src/controllers.js',
+    './App/Src/directives.js',
+    './App/Src/filters.js',
+    './App/Src/services.js'
 ];
 
 var sassSource = [

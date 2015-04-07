@@ -4566,33 +4566,27 @@ function qb(a,b){x(!b||!0===a||!1===a,"Can't turn on custom loggers persistently
         vm.users = [];
         vm.data = [];
         vm.chartLabels = ["Yes Votes", "No Votes", "Neutral Votes"];
+        vm.voteTypes = [{ value: 'Yes' }, { value: 'No' }, { value: 'Neutral' }];
+        vm.user = { vote: 'Neutral' };
 
-        vm.voteTypes = [{
-            value: 'Yes'
-        }, {
-            value: 'No'
-        }, {
-            value: 'Neutral'
-        }];
-
-        vm.user = {
-            vote: 'Neutral'
-        }
-
-        vm.toggleNav = function() {
-            vm.showNav = !vm.showNav;
-        };
-
-        vm.vote = function(voteValue) {
-            userService.vote(voteValue);
-        };
-
-        vm.join = function() {
-            $location.path('/vote');
-            vm.users = userService.joinGroup(vm.name, vm.group);
-        };
+        vm.toggleNav = toggleNav;
+        vm.vote = vote;
+        vm.join = join;
 
         userService.authAnonymously(vm.name);
+
+        function toggleNav() {
+            vm.showNav = !vm.showNav;
+        }
+
+        function vote(voteValue) {
+            userService.vote(voteValue);
+        }
+
+        function join() {
+            $location.path('/vote');
+            vm.users = userService.joinGroup(vm.name, vm.group);
+        }
 
         $scope.$watchCollection(function() {
             return vm.users;
